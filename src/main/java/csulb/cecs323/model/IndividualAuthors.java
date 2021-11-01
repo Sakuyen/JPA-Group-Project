@@ -2,14 +2,13 @@ package csulb.cecs323.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class IndividualAuthors extends AuthoringEntities {
     @OneToMany (mappedBy = "authors",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<AdHocTeamMembers> teamMembers;
+    private ArrayList<AdHocTeamMembers> teamMembers;
 
     public IndividualAuthors() { }
 
@@ -29,7 +28,7 @@ public class IndividualAuthors extends AuthoringEntities {
         }
     }
 
-    public List<AdHocTeamMembers> getTeamMembers() { return teamMembers; }
+    public ArrayList<AdHocTeamMembers> getTeamMembers() { return teamMembers; }
 
     public void setTeamMembers(ArrayList<AdHocTeamMembers> teamMembers) { this.teamMembers = teamMembers; }
 }
