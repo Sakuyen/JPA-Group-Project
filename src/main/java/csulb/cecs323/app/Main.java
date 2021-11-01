@@ -72,36 +72,16 @@ public class Main {
 
       LOGGER.fine("Begin");
       EntityTransaction tx = manager.getTransaction();
-
       tx.begin();
-//      // List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
-//      List <Owners> owners = new ArrayList<Owners>();
-//      // Load up my List with the Entities that I want to persist.  Note, this does not put them
-//      // into the database.
-//      owners.add(new Owners("Reese", "Mike", "714-892-5544"));
-//      owners.add(new Owners("Leck", "Carl", "714-321-3729"));
-//      owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
-//      // Create the list of owners in the database.
-
-      System.out.println("annie is here xd");
-      // Prompts user for a publisher, phone number, and email
-      System.out.println("Enter a publisher.");
-      String name = getUserString();
-      System.out.println("Enter a phone number.");
-      String phone = getUserString();
-      System.out.println("Enter an email");
-      String email = getUserString();
-
-      Publishers publisher = new Publishers(name, phone, email);
-      List <Publishers> publishers = new ArrayList<>();
-      publishers.add(publisher);
-
-      // Creates the list of publishers in the database.
-      main.createEntity (publishers);
-
+      List<Publishers> publisher = new ArrayList<Publishers>();
+      publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
+      publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
+      main.createEntity (publisher);
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
+      List<Publishers> resultPublisher = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
+//      listInfo(publishers);
 
    } // End of the main method
 
@@ -130,4 +110,8 @@ public class Main {
          LOGGER.info("Persisted object after flush (non-null id): " + next);
       }
    } // End of createEntity member method
+
+   public void listInfo(Object o){
+      System.out.println(o.toString());
+   }
 } // End of Main class

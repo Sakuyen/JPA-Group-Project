@@ -16,8 +16,8 @@ public class Publishers {
     private String phone;
 
     @OneToMany (mappedBy = "publishers",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
     private ArrayList<Books> books = new ArrayList<>();
 
     public Publishers() { }
@@ -62,5 +62,10 @@ public class Publishers {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + this.name + "Email: " + this.email + "Phone: " + this.phone;
     }
 }

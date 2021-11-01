@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 @Entity
 public class IndividualAuthors extends AuthoringEntities {
-    @OneToMany (mappedBy = "individualAuthors",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany (mappedBy = "authors",
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
     private ArrayList<AdHocTeamMembers> teamMembers;
 
     public IndividualAuthors() { }
