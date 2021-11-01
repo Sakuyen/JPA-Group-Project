@@ -161,6 +161,7 @@ public class Main {
                //handling error by testing user input
 
                boolean error = true;
+               int selected_index;
 
                while(error == true){
                   //Display book options
@@ -174,6 +175,8 @@ public class Main {
 
                   for(Books b: books){
                      if(b.getIsbn() == isbn){
+                        selected_index = book.indexOf(b);
+                        books.remove(selected_index);
                         error = false;
                      }
 
@@ -181,8 +184,6 @@ public class Main {
                         System.out.println("Invalid ISBN. Reenter a valid ISBN.");
                   }
                }
-
-               //Go through Book's list to delete one with selected isbn
 
                break;
             case 4:
