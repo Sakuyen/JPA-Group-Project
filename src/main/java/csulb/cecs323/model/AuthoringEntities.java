@@ -20,6 +20,9 @@ public class AuthoringEntities {
     @Column(length = 80, nullable = false)
     private String name;
 
+    @Column(length = 31, nullable = false)
+    private String authoringEntityType;
+
     @OneToMany (mappedBy = "entities",
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
@@ -27,9 +30,10 @@ public class AuthoringEntities {
 
     public AuthoringEntities() { }
 
-    public AuthoringEntities(String name, String email) {
+    public AuthoringEntities(String name, String email, String authoringEntityType) {
         this.name = name;
         this.email = email;
+        this.authoringEntityType = authoringEntityType;
     }
 
     public void addBooks(Books book) {
@@ -62,5 +66,13 @@ public class AuthoringEntities {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAuthoringEntityType() {
+        return authoringEntityType;
+    }
+
+    public void setAuthoringEntityType(String authoringEntityType) {
+        this.authoringEntityType = authoringEntityType;
     }
 }

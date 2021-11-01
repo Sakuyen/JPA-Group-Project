@@ -66,7 +66,6 @@ public class Main {
       // Create an instance of Main and store our new EntityManager as an instance variable.
       Main main = new Main(manager);
 
-
       // Any changes to the database need to be done within a transaction.
       // See: https://en.wikibooks.org/wiki/Java_Persistence/Transactions
 
@@ -80,10 +79,83 @@ public class Main {
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
+
+      boolean done = false;
       List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
-//      for (Publishers p : publishers) {
-//         System.out.println(publishers.toString());
-//      }
+      while(!done) {
+         // Main menu
+         System.out.println("1. Add a...\n" +
+                 "2. Display all information of...\n" +
+                 "3. Delete a Book\n" +
+                 "4. Update a Book\n" +
+                 "5. List the primary keys of all rows\n" +
+                 "6. Finish");
+         Scanner in = new Scanner(System.in);
+         int choice = Integer.parseInt(in.next());
+         switch(choice)
+         {
+            case 1:
+               break;
+            case 2: // Display information of a specific object
+               // Menu for displaying all information for an object
+               System.out.println("1. Display all information for a specific Publisher.\n" +
+                       "2. Display all information for a specific Book.\n" +
+                       "3. Display all information for a specific Writing Group.\n" +
+                       "4. Finish");
+               Scanner in2 = new Scanner(System.in);
+               int choice2 = Integer.parseInt(in.next());
+               switch(choice2){
+                  case 1:
+                     System.out.println(publishers);
+                     break;
+                  case 2:
+//                     System.out.println(books);
+                     break;
+                  case 3:
+//                     System.out.println(writingGroups);
+                     break;
+                  case 4:
+                     break;
+               }
+               break;
+            case 3:
+               break;
+            case 4:
+               break;
+            case 5: // Display PK of all rows of a specific table
+               System.out.println("1. Display Publisher names of all Publishers.\n" +
+                       "2. Display ISBN and title of all Books.\n" +
+                       "3. Display email of all Authoring Entities.\n" +
+                       "4. Finish");
+               Scanner in5 = new Scanner(System.in);
+               int choice5 = Integer.parseInt(in.next());
+               switch(choice5) {
+                  case 1: // Display publisher names
+                     for (Publishers p : publishers) {
+                        System.out.println("Publisher Name: " + p.getName());
+                     }
+                     break;
+                  case 2: // Display Book titles and ISBN
+//                     for (Books b : books) {
+//                        System.out.println("ISBN: " + b.getIsbn() + ", Title: " + b.getTitle());
+//                     }
+                     break;
+                  case 3: // Display Authoring Entity type and their email
+//                     for (AuthoringEntities a : authoringEntities) {
+//                        System.out.println(a.getAuthoringEntityType + " Email: " + a.getEmail() + ");
+//                     }
+                     break;
+                  case 4:
+                     break;
+               }
+               break;
+            case 6:
+               System.out.println("Quitting.");
+               done = true;
+               break;
+         }
+//         System.out.println(publishers);
+      }
 
    } // End of the main method
 
@@ -114,6 +186,6 @@ public class Main {
    } // End of createEntity member method
 
    public void listInfo(Object o){
-      System.out.println(o.toString());
+
    }
 } // End of Main class
