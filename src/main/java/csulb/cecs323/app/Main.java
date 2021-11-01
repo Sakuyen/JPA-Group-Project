@@ -80,10 +80,55 @@ public class Main {
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
+      boolean done = false;
       List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
-//      for (Publishers p : publishers) {
-//         System.out.println(publishers.toString());
-//      }
+      while(!done) {
+         // menu
+         System.out.println("1. Add a new Object.\n" +
+                 "2. Display all information for a specific Object.\n" +
+                 "3. Delete a Book\n" +
+                 "4. Update a Book\n" +
+                 "5. List the primary keys of all rows\n" +
+                 "6. Finish");
+         Scanner in = new Scanner(System.in);
+         int choice = Integer.parseInt(in.next());
+         switch(choice)
+         {
+            case 1:
+               break;
+            case 2:
+               //menu 2
+               System.out.println("1. Display all information for a specific Publisher.\n" +
+                       "2. Display all information for a specific Book.\n" +
+                       "3. Display all information for a specific Writing Group.\n" +
+                       "4. Finish");
+               Scanner in2 = new Scanner(System.in);
+               int choice2 = Integer.parseInt(in.next());
+               switch(choice2){
+                  case 1:
+                     System.out.println(publishers);
+                     break;
+                  case 2:
+                     break;
+                  case 3:
+                     break;
+                  case 4:
+                     break;
+               }
+               break;
+            case 3:
+               break;
+            case 4:
+               break;
+            case 5:
+               break;
+            case 6:
+               System.out.println("Quitting.");
+               done = true;
+               break;
+         }
+//         System.out.println(publishers);
+      }
 
    } // End of the main method
 
@@ -114,6 +159,6 @@ public class Main {
    } // End of createEntity member method
 
    public void listInfo(Object o){
-      System.out.println(o.toString());
+
    }
 } // End of Main class

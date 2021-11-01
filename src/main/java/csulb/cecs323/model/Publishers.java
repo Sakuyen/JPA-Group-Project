@@ -66,6 +66,6 @@ public class Publishers {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + "Email: " + this.email + "Phone: " + this.phone;
+        return "Name: " + this.name + " Email: " + this.email + " Phone: " + this.phone + "\n";
     }
 }
