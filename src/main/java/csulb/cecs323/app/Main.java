@@ -263,7 +263,36 @@ public class Main {
                             break;
                     }
                     break;
+                // delete a book
                 case 3:
+                    //handling error by testing user input
+
+                    boolean error = true;
+                    int selected_index;
+
+                    while(error == true){
+                        //Display book options
+                        System.out.println("Book list:");
+                        for (Books b : booksInData) {
+                            System.out.println("ISBN: " + b.getIsbn() + ", Title: " + b.getTitle());
+                        }
+
+                        System.out.print("Select a book by entering its ISBN: ");
+                        int isbn = in.nextInt();
+
+                        for(Books b: booksInData){
+                            if(b.getIsbn() == isbn){
+                                tx.begin();
+                                manager.remove(b);
+                                tx.commit();
+                                error = false;
+                            }
+
+                            else
+                                System.out.println("Invalid ISBN. Reenter a valid ISBN.");
+                        }
+                    }
+
                     break;
                 // update book
                 case 4:
@@ -302,6 +331,7 @@ public class Main {
                     manager.merge(selectedBook);
                     tx.commit();
                     break;
+                // List primary keys of all rows
                 case 5:
                     System.out.println("1. Display Publisher names of all Publishers.\n" +
                             "2. Display ISBN and title of all Books.\n" +
