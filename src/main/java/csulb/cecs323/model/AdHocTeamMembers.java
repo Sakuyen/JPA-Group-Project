@@ -8,7 +8,7 @@ import javax.persistence.*;
         query = "SELECT * " +
                 "FROM   ADHOCTEAMMEMBERS " +
                 "WHERE  authors = ? AND teams = ? ",
-        resultClass = Publishers.class
+        resultClass = AdHocTeamMembers.class
 )
 public class AdHocTeamMembers {
     @Id
