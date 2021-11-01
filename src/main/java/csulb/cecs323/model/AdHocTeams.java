@@ -2,19 +2,18 @@ package csulb.cecs323.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class AdHocTeams extends AuthoringEntities {
     @OneToMany (mappedBy = "teams",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<AdHocTeamMembers> teamMembers;
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
+    private ArrayList<AdHocTeamMembers> teamMembers;
 
     public AdHocTeams() { }
 
     public AdHocTeams(String name, String email) {
-        super(name, email, "Ad Hoc Team");
+        super(name, email);
     }
 
     public void addTeamMembers(AdHocTeamMembers teamMember) {
@@ -29,7 +28,7 @@ public class AdHocTeams extends AuthoringEntities {
         }
     }
 
-    public List<AdHocTeamMembers> getTeamMembers() { return teamMembers; }
+    public ArrayList<AdHocTeamMembers> getTeamMembers() { return teamMembers; }
 
     public void setTeamMembers(ArrayList<AdHocTeamMembers> teamMembers) { this.teamMembers = teamMembers; }
 }
