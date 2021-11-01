@@ -7,14 +7,14 @@ import java.util.List;
 @Entity
 public class AdHocTeams extends AuthoringEntities {
     @OneToMany (mappedBy = "teams",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<AdHocTeamMembers> teamMembers;
 
     public AdHocTeams() { }
 
     public AdHocTeams(String name, String email) {
-        super(name, email);
+        super(name, email, "Ad Hoc Team");
     }
 
     public void addTeamMembers(AdHocTeamMembers teamMember) {
@@ -31,5 +31,5 @@ public class AdHocTeams extends AuthoringEntities {
 
     public List<AdHocTeamMembers> getTeamMembers() { return teamMembers; }
 
-    public void setTeamMembers(List<AdHocTeamMembers> teamMembers) { this.teamMembers = teamMembers; }
+    public void setTeamMembers(ArrayList<AdHocTeamMembers> teamMembers) { this.teamMembers = teamMembers; }
 }

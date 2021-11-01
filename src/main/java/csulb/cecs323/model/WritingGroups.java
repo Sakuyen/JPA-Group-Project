@@ -4,16 +4,16 @@ import javax.persistence.*;
 
 @Entity
 public class WritingGroups extends AuthoringEntities {
-    @Column(length = 80, nullable = false)
+    @Column(length = 80, nullable = true)
     private String headWriter;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int yearFormed;
 
     public WritingGroups() { }
 
     public WritingGroups(String name, String email, String headWriter, int yearFormed) {
-        super(name, email);
+        super(name, email, "Writing Group");
         this.headWriter = headWriter;
         this.yearFormed = yearFormed;
     }
@@ -32,5 +32,11 @@ public class WritingGroups extends AuthoringEntities {
 
     public void setYearFormed(int yearFormed) {
         this.yearFormed = yearFormed;
+    }
+
+    @Override
+    public String toString() {
+        return "Author Name: " + this.getName() + ", Author Email: " + this.getEmail() + ", Head Writer: " + this.headWriter +
+                ", Year Formed: " + this.yearFormed + "\n";
     }
 }

@@ -7,14 +7,14 @@ import java.util.List;
 @Entity
 public class IndividualAuthors extends AuthoringEntities {
     @OneToMany (mappedBy = "authors",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<AdHocTeamMembers> teamMembers;
 
     public IndividualAuthors() { }
 
     public IndividualAuthors(String name, String email) {
-        super(name, email);
+        super(name, email, "Individual Author");
     }
 
     public void addTeamMembers(AdHocTeamMembers teamMember) {

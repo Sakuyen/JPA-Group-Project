@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedNativeQuery(
+        name="ReturnPublishers",
+        query = "SELECT * " +
+                "FROM   PUBLISHERS " +
+                "WHERE  name = ? ",
+        resultClass = Publishers.class
+)
 public class Publishers {
     @Id
     @Column(length = 80, nullable = false)
@@ -17,8 +24,8 @@ public class Publishers {
     private String phone;
 
     @OneToMany (mappedBy = "publishers",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Books> books = new ArrayList<>();
 
     public Publishers() { }
@@ -43,7 +50,7 @@ public class Publishers {
 
     public List<Books> getBooks() { return books; }
 
-    public void setBooks(List<Books> books) { this.books = books; }
+    public void setBooks(ArrayList<Books> books) { this.books = books; }
 
     public String getName() { return name; }
 
@@ -67,6 +74,6 @@ public class Publishers {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + " Email: " + this.email + " Phone: " + this.phone + "\n";
+        return "Publisher Name: " + this.name + ", Publisher Email: " + this.email + ", Publisher Phone: " + this.phone + "\n";
     }
 }

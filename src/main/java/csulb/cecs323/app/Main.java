@@ -77,6 +77,7 @@ public class Main {
         tx.begin();
         List<Publishers> publisher = new ArrayList<>();
         List<Books> books = new ArrayList<>();
+        List<AuthoringEntities> authors = new ArrayList<>();
         publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
         publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
         main.createEntity(publisher);
@@ -87,7 +88,7 @@ public class Main {
         List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
         while (!done) {
             // updating queries.
-            List<AuthoringEntities> authors = manager.createQuery("SELECT a FROM AuthoringEntities a", AuthoringEntities.class).getResultList();
+
             // menu
             System.out.println("1. Add a new Object.\n" +
                     "2. Display all information for a specific Object.\n" +
@@ -100,12 +101,50 @@ public class Main {
             switch (choice) {
                 // add a new object
                 case 1:
+                    tx.begin();
                     System.out.println("Select a new object type to create:\n1. Authoring Entity\n2. Publisher\n3. Book");
                     int typeChoice = Integer.parseInt(getUserString());
 
                     // Creating a new authoring entity
                     if (typeChoice == 1) {
-                        System.out.print("Select authoring entity type.");
+                        String email;
+                        String name;
+                        String type;
+                        int typeInt = 0;
+                        while (typeInt < 1 && typeInt > 3) {
+                            System.out.println("Select authoring entity type: \n1. Individual Author\n2. Ad Hoc Team\n3. Writing Group");
+                            typeInt = Integer.parseInt(getUserString());
+                            switch (typeInt) {
+                                case 1:
+                                    type = "Individual Author";
+                                    break;
+                                case 2:
+                                    type = "Ad Hoc Team";
+                                    break;
+                                case 3:
+                                    type = "Writing Group";
+                                    break;
+                                default:
+                                    System.out.println("invalid input");
+                                    break;
+                            }
+                        }
+                        System.out.println("Enter authoring entity name:");
+                        name = getUserString();
+                        System.out.println("Enter authoring entity email:");
+                        email = getUserString();
+                        if (type.equals("Individual Author")) {
+                            authors.add(new IndividualAuthors(name, email));
+                        } else if (type.equals("Ad Hoc Team")) {
+                            authors.add(new AdHocTeams(name, email));
+                        } else if (type.equals("Writing Group")) {
+                            System.out.println("Enter the name of the head writer.");
+                            String headWriter = getUserString();
+                            System.out.println ("Enter the year the writing group was formed:");
+                            int yearFormed = Integer.parseInt(getUserString());
+                            authors.add(new WritingGroups(name, email, headWriter, yearFormed));
+                        }
+                        main.createEntity (authors);
                     }
                     // New publisher
                     else if (typeChoice == 2) {
@@ -120,6 +159,7 @@ public class Main {
                         phone = getUserString();
 
                         publisher.add(new Publishers(name, phone, email));
+                        main.createEntity(publisher);
                     }
                     // New book.
                     else if (typeChoice == 3) {
@@ -148,7 +188,8 @@ public class Main {
                             }
                         }
                         System.out.println("LIST OF AUTHORING ENTITIES:");
-                        for (AuthoringEntities a : authors) {
+                        List<AuthoringEntities> currAuthors = manager.createQuery("SELECT a FROM AuthoringEntities a", AuthoringEntities.class).getResultList();
+                        for (AuthoringEntities a : currAuthors) {
                             System.out.println(a);
                         }
                         System.out.println("Select the author's email");
@@ -159,10 +200,11 @@ public class Main {
                             }
                         }
                         books.add(new Books(bookPublisher, author, isbn, title, yearPublished));
-                    }
-                    else {
+                        main.createEntity(books);
+                    } else {
                         System.out.println("Invalid input.");
                     }
+                    tx.commit();
                     break;
                 case 2:
                     //menu 2

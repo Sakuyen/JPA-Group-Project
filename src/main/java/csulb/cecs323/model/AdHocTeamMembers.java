@@ -1,12 +1,15 @@
 package csulb.cecs323.model;
 
 import javax.persistence.*;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.ManyToOne;
 
 @Entity
+@NamedNativeQuery(
+        name="ReturnAdHocTeamMembers",
+        query = "SELECT * " +
+                "FROM   ADHOCTEAMMEMBERS " +
+                "WHERE  authors = ? AND teams = ? ",
+        resultClass = AdHocTeamMembers.class
+)
 public class AdHocTeamMembers {
     @Id
     @ManyToOne
