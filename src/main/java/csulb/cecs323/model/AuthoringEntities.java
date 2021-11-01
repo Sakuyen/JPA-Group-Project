@@ -30,6 +30,16 @@ public class AuthoringEntities {
 
     public AuthoringEntities() { }
 
+    @Override
+    public String toString() {
+        return "AuthoringEntities{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", authoringEntityType='" + authoringEntityType + '\'' +
+                ", books=" + books +
+                '}';
+    }
+
     public AuthoringEntities(String name, String email, String authoringEntityType) {
         this.name = name;
         this.email = email;

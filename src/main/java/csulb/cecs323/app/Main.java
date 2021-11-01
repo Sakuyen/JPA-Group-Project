@@ -20,6 +20,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,7 +76,7 @@ public class Main {
         List<WritingGroups> group = new ArrayList<>();
         group.add(new WritingGroups("Authoring Company", "company@getauthored.com", "Hed Wright", 1999));
         group.add(new WritingGroups("Authoring Group", "group@getauthored.com", "Writ Heed", 2000));
-        main.createEntity (group);
+        main.createEntity(group);
 
         LOGGER.fine("Begin");
         EntityTransaction tx = manager.getTransaction();
@@ -86,6 +87,7 @@ public class Main {
         publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
         publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
         main.createEntity(publisher);
+        List<Books> booksInData;
         // Commit the changes so that the new data persists and is visible to other users.
         tx.commit();
         LOGGER.fine("End");
@@ -94,6 +96,8 @@ public class Main {
         while (!done) {
             // updating queries.
             publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
+            booksInData = manager.createQuery("SELECT a FROM Books a", Books.class).getResultList();
+
             // menu
             System.out.println("1. Add a new Object.\n" +
                     "2. Display all information for a specific Object.\n" +
@@ -147,11 +151,11 @@ public class Main {
                         } else if (type.equals("Writing Group")) {
                             System.out.println("Enter the name of the head writer.");
                             String headWriter = getUserString();
-                            System.out.println ("Enter the year the writing group was formed:");
+                            System.out.println("Enter the year the writing group was formed:");
                             int yearFormed = Integer.parseInt(getUserString());
                             authors.add(new WritingGroups(name, email, headWriter, yearFormed));
                         }
-                        main.createEntity (authors); // persisting new authoring entity
+                        main.createEntity(authors); // persisting new authoring entity
                     }
                     // New publisher
                     else if (typeChoice == 2) {
@@ -216,6 +220,7 @@ public class Main {
                     }
                     tx.commit();
                     break;
+                // display an object
                 case 2:
                     //menu 2
                     System.out.println("1. Display all information for a specific Publisher.\n" +
@@ -225,12 +230,12 @@ public class Main {
                     Scanner in2 = new Scanner(System.in);
                     int choice2 = Integer.parseInt(in2.next());
                     Scanner in3 = new Scanner(System.in);
-                    switch(choice2){
+                    switch (choice2) {
                         case 1: //Display information for specific publisher
                             System.out.println("Select a publisher by entering their name:");
                             String name = in3.nextLine();
-                            for(Publishers p: publishers) {
-                                if(p.getName().equals(name)){
+                            for (Publishers p : publishers) {
+                                if (p.getName().equals(name)) {
                                     System.out.println(p);
                                 }
                             }
@@ -238,8 +243,8 @@ public class Main {
                         case 2: //Display information for specific book
                             System.out.println("Select a book by entering its isbn:");
                             int isbn = in3.nextInt();
-                            for(Books b: books) {
-                                if(b.getIsbn() == isbn){
+                            for (Books b : books) {
+                                if (b.getIsbn() == isbn) {
                                     System.out.println(b);
                                 }
                             }
@@ -247,8 +252,8 @@ public class Main {
                         case 3: //Display information for specific writing group
                             System.out.println("Select a Writing Group by entering their email:");
                             String email = in3.nextLine();
-                            for(WritingGroups w: group) {
-                                if(w.getEmail().equals(email)){
+                            for (WritingGroups w : group) {
+                                if (w.getEmail().equals(email)) {
                                     System.out.println(w);
                                 }
                             }
@@ -260,7 +265,42 @@ public class Main {
                     break;
                 case 3:
                     break;
+                // update book
                 case 4:
+                    // Select a book to modify.
+                    System.out.println("SELECT A BOOK BY ISBN:");
+                    Books selectedBook = new Books();
+                    for (Books b : booksInData) {
+                        System.out.println(b.toString());
+                    }
+                    int isbn = Integer.parseInt(getUserString());
+
+                    for (Books b : booksInData) {
+                        if (b.getIsbn() == isbn) {
+                            selectedBook = b;
+                            System.out.println("Chosen book: " + b.toString());
+                            break;
+                        }
+                    }
+
+                    // Select a new authoring entity.
+                    System.out.println("SELECT A NEW AUTHORING ENTITY BY EMAIL:");
+                    for (AuthoringEntities author : authors) {
+                        System.out.println(author.toString());
+                    }
+                    String email;
+                    email = getUserString();
+                    for (AuthoringEntities author : authors) {
+                        if (email.equals(author.getEmail())) {
+                            System.out.println("Chosen authoring entity: " + author.toString());
+                            selectedBook.setAuthoringEntities(author);
+                            break;
+                        }
+                    }
+                    // updating in db
+                    tx.begin();
+                    manager.merge(selectedBook);
+                    tx.commit();
                     break;
                 case 5:
                     System.out.println("1. Display Publisher names of all Publishers.\n" +
@@ -269,7 +309,7 @@ public class Main {
                             "4. Finish");
                     Scanner in5 = new Scanner(System.in);
                     int choice5 = Integer.parseInt(in5.next());
-                    switch(choice5) {
+                    switch (choice5) {
                         case 1: // Display publisher names
                             for (Publishers p : publishers) {
                                 System.out.println("Publisher Name: " + p.getName());
@@ -298,6 +338,7 @@ public class Main {
 
     /**
      * Gathers a string from the user.
+     *
      * @return the string the user put in
      */
     public static String getUserString() {
