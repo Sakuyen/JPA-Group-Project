@@ -13,7 +13,7 @@ public class AdHocTeams extends AuthoringEntities {
     public AdHocTeams() { }
 
     public AdHocTeams(String name, String email) {
-        super(name, email);
+        super(name, email, "Ad Hoc Team");
     }
 
     public void addTeamMembers(AdHocTeamMembers teamMember) {

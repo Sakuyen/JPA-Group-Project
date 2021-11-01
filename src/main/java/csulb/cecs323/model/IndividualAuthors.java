@@ -13,7 +13,7 @@ public class IndividualAuthors extends AuthoringEntities {
     public IndividualAuthors() { }
 
     public IndividualAuthors(String name, String email) {
-        super(name, email);
+        super(name, email, "Individual Author");
     }
 
     public void addTeamMembers(AdHocTeamMembers teamMember) {

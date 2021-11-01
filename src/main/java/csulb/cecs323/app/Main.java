@@ -81,7 +81,14 @@ public class Main {
       tx.commit();
       LOGGER.fine("End");
       boolean done = false;
-      List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
+//      EntityManager em = getEntityManager();
+//      Query query = em.createNamedQuery();
+      List<Publishers> publishers = manager.createQuery
+              ("SELECT a FROM Publishers a", Publishers.class).getResultList();
+      List<Books> books = manager.createQuery
+              ("SELECT a FROM Books a", Books.class).getResultList();
+      List<WritingGroups> groups = manager.createQuery
+              ("SELECT a FROM WritingGroups a", WritingGroups.class).getResultList();
       while(!done) {
          // menu
          System.out.println("1. Add a new Object.\n" +
@@ -104,15 +111,21 @@ public class Main {
                        "4. Finish");
                Scanner in2 = new Scanner(System.in);
                int choice2 = Integer.parseInt(in.next());
+               Scanner in3 = new Scanner(System.in);
                switch(choice2){
                   case 1:
+                     System.out.println("Select a publisher by entering their name:");
+                     String name = in.nextLine();
                      System.out.println(publishers);
                      break;
                   case 2:
+                     System.out.println(books);
                      break;
                   case 3:
+                     System.out.println(groups);
                      break;
                   case 4:
+                     System.out.println("Exiting.");
                      break;
                }
                break;
@@ -120,7 +133,32 @@ public class Main {
                break;
             case 4:
                break;
-            case 5:
+            case 5: // Display PK of all rows of a specific table
+               System.out.println("1. Display Publisher names of all Publishers.\n" +
+                       "2. Display ISBN and title of all Books.\n" +
+                       "3. Display email of all Authoring Entities.\n" +
+                       "4. Finish");
+               Scanner in5 = new Scanner(System.in);
+               int choice5 = Integer.parseInt(in.next());
+               switch(choice5) {
+                  case 1: // Display publisher names
+                     for (Publishers p : publishers) {
+                        System.out.println("Publisher Name: " + p.getName());
+                     }
+                     break;
+                  case 2: // Display Book titles and ISBN
+//                     for (Books b : books) {
+//                        System.out.println("ISBN: " + b.getIsbn() + ", Title: " + b.getTitle());
+//                     }
+                     break;
+                  case 3: // Display Authoring Entity type and their email
+//                     for (AuthoringEntities a : authoringEntities) {
+//                        System.out.println(a.getAuthoringEntityType + " Email: " + a.getEmail() + ");
+//                     }
+                     break;
+                  case 4:
+                     break;
+               }
                break;
             case 6:
                System.out.println("Quitting.");
