@@ -77,11 +77,29 @@ public class Main {
       publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
       publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
       main.createEntity (publisher);
+
+      List<WritingGroups> group = new ArrayList<>();
+      group.add(new WritingGroups("Authoring Company", "company@getauthored.com", "Hed Wright", 1999));
+      group.add(new WritingGroups("Authoring Group", "group@getauthored.com", "Writ Heed", 2000));
+      main.createEntity (group);
+
+      List<Books> book = new ArrayList<>();
+      book.add(new Books(publisher.get(0), group.get(1), 987654321, "A titled book", 2012));
+      book.add(new Books(publisher.get(1), group.get(0), 123456789, "Another titled book", 2020));
+      main.createEntity (book);
+
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
       boolean done = false;
-      List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
+//      EntityManager em = getEntityManager();
+//      Query query = em.createNamedQuery();
+      List<Publishers> publishers = manager.createQuery
+              ("SELECT a FROM Publishers a", Publishers.class).getResultList();
+      List<Books> books = manager.createQuery
+              ("SELECT a FROM Books a", Books.class).getResultList();
+      List<WritingGroups> groups = manager.createQuery
+              ("SELECT a FROM WritingGroups a", WritingGroups.class).getResultList();
       while(!done) {
          // menu
          System.out.println("1. Add a new Object.\n" +
@@ -104,15 +122,21 @@ public class Main {
                        "4. Finish");
                Scanner in2 = new Scanner(System.in);
                int choice2 = Integer.parseInt(in.next());
+               Scanner in3 = new Scanner(System.in);
                switch(choice2){
                   case 1:
+                     System.out.println("Select a publisher by entering their name:");
+                     String name = in.nextLine();
                      System.out.println(publishers);
                      break;
                   case 2:
+                     System.out.println(books);
                      break;
                   case 3:
+                     System.out.println(groups);
                      break;
                   case 4:
+                     System.out.println("Exiting.");
                      break;
                }
                break;

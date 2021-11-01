@@ -33,4 +33,10 @@ public class WritingGroups extends AuthoringEntities {
     public void setYearFormed(int yearFormed) {
         this.yearFormed = yearFormed;
     }
+
+    @Override
+    public String toString() {
+        return "Author Name: " + this.getName() + ", Author Email: " + this.getEmail() + ", Head Writer: " + this.headWriter +
+                ", Year Formed: " + this.yearFormed + "\n";
+    }
 }
