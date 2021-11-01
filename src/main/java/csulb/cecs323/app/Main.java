@@ -73,7 +73,7 @@ public class Main {
       LOGGER.fine("Begin");
       EntityTransaction tx = manager.getTransaction();
       tx.begin();
-      List<Publishers> publisher = new ArrayList<Publishers>();
+      List<Publishers> publisher = new ArrayList<>();
       publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
       publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
       main.createEntity (publisher);
@@ -81,7 +81,7 @@ public class Main {
       tx.commit();
       LOGGER.fine("End");
       List<Publishers> resultPublisher = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
-//      listInfo(publishers);
+//      listInfo(publishers); c
 
    } // End of the main method
 
