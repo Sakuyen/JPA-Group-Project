@@ -158,6 +158,32 @@ public class Main {
                }
                break;
             case 3:
+               //handling error by testing user input
+
+               boolean error = true;
+
+               while(error == true){
+                  //Display book options
+                  System.out.println("Book list:");
+                  for (Books b : books) {
+                     System.out.println("ISBN: " + b.getIsbn() + ", Title: " + b.getTitle());
+                  }
+
+                  System.out.print("Select a book by entering its ISBN: ");
+                  int isbn = in.nextInt();
+
+                  for(Books b: books){
+                     if(b.getIsbn() == isbn){
+                        error = false;
+                     }
+
+                     else
+                        System.out.println("Invalid ISBN. Reenter a valid ISBN.");
+                  }
+               }
+
+               //Go through Book's list to delete one with selected isbn
+
                break;
             case 4:
                break;
@@ -227,4 +253,5 @@ public class Main {
    public void listInfo(Object o){
 
    }
+
 } // End of Main class
