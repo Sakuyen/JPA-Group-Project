@@ -63,7 +63,7 @@ public class Publishers {
     public void setEmail(String email) {
         this.email = email;
     }
-//c
+
     @Override
     public String toString() {
         return "Name: " + this.name + "Email: " + this.email + "Phone: " + this.phone;

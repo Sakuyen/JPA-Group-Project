@@ -81,7 +81,7 @@ public class Main {
       tx.commit();
       LOGGER.fine("End");
       List<Publishers> resultPublisher = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
-//      listInfo(publishers); c
+//      listInfo(publishers);
 
    } // End of the main method
 
