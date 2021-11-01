@@ -88,7 +88,7 @@ public class Main {
         List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
         while (!done) {
             // updating queries.
-
+            List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
             // menu
             System.out.println("1. Add a new Object.\n" +
                     "2. Display all information for a specific Object.\n" +
@@ -99,7 +99,7 @@ public class Main {
             Scanner in = new Scanner(System.in);
             int choice = Integer.parseInt(in.next());
             switch (choice) {
-                // add a new object
+                // Add a new object to the db
                 case 1:
                     tx.begin();
                     System.out.println("Select a new object type to create:\n1. Authoring Entity\n2. Publisher\n3. Book");
@@ -107,11 +107,13 @@ public class Main {
 
                     // Creating a new authoring entity
                     if (typeChoice == 1) {
+                        // Variables to choose an authoring entity/type of entity
                         String email;
                         String name;
-                        String type;
+                        String type = "null";
                         int typeInt = 0;
-                        while (typeInt < 1 && typeInt > 3) {
+                        // selecting the type
+                        while (typeInt < 1 || typeInt > 3) {
                             System.out.println("Select authoring entity type: \n1. Individual Author\n2. Ad Hoc Team\n3. Writing Group");
                             typeInt = Integer.parseInt(getUserString());
                             switch (typeInt) {
@@ -144,13 +146,15 @@ public class Main {
                             int yearFormed = Integer.parseInt(getUserString());
                             authors.add(new WritingGroups(name, email, headWriter, yearFormed));
                         }
-                        main.createEntity (authors);
+                        main.createEntity (authors); // persisting new authoring entity
                     }
                     // New publisher
                     else if (typeChoice == 2) {
+                        // Variables for new publisher.
                         String name;
                         String email;
                         String phone;
+                        // Gathering variables.
                         System.out.println("Enter the name of the publisher:");
                         name = getUserString();
                         System.out.println("Enter the email of the publisher:");
@@ -163,6 +167,7 @@ public class Main {
                     }
                     // New book.
                     else if (typeChoice == 3) {
+                        // Variables to use in initializing our new book.
                         Publishers bookPublisher = new Publishers();
                         AuthoringEntities author = new AuthoringEntities();
                         String title;
@@ -170,6 +175,7 @@ public class Main {
                         String authorEmail;
                         int isbn;
                         int yearPublished;
+                        // Gathering variables.
                         System.out.println("Enter the book title:");
                         title = getUserString();
                         System.out.println("Enter the book isbn:");
@@ -188,9 +194,8 @@ public class Main {
                             }
                         }
                         System.out.println("LIST OF AUTHORING ENTITIES:");
-                        List<AuthoringEntities> currAuthors = manager.createQuery("SELECT a FROM AuthoringEntities a", AuthoringEntities.class).getResultList();
-                        for (AuthoringEntities a : currAuthors) {
-                            System.out.println(a);
+                        for (AuthoringEntities a : authors) {
+                            System.out.println(a.toString());
                         }
                         System.out.println("Select the author's email");
                         authorEmail = getUserString();
