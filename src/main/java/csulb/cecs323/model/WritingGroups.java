@@ -13,7 +13,7 @@ public class WritingGroups extends AuthoringEntities {
     public WritingGroups() { }
 
     public WritingGroups(String name, String email, String headWriter, int yearFormed) {
-        super(name, email);
+        super(name, email, "Writing Group");
         this.headWriter = headWriter;
         this.yearFormed = yearFormed;
     }
