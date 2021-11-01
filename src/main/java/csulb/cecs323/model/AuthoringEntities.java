@@ -2,6 +2,7 @@ package csulb.cecs323.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -16,7 +17,7 @@ public class AuthoringEntities {
     @OneToMany (mappedBy = "entities",
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
-    private ArrayList<Books> books = new ArrayList<>();
+    private List<Books> books = new ArrayList<>();
 
     public AuthoringEntities() { }
 
@@ -37,9 +38,9 @@ public class AuthoringEntities {
         }
     }
 
-    public ArrayList<Books> getBooks() { return books; }
+    public List<Books> getBooks() { return books; }
 
-    public void setBooks(ArrayList<Books> books) { this.books = books; }
+    public void setBooks(List<Books> books) { this.books = books; }
 
     public String getName() {
         return name;
