@@ -3,13 +3,13 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
-@NamedNativeQuery(
-        name="ReturnAdHocTeamMembers",
-        query = "SELECT * " +
-                "FROM   ADHOCTEAMMEMBERS " +
-                "WHERE  authors = ? AND teams = ? ",
-        resultClass = AdHocTeamMembers.class
-)
+//@NamedNativeQuery(
+//        name="ReturnAdHocTeamMembers",
+//        query = "SELECT * " +
+//                "FROM   ADHOCTEAMMEMBERS " +
+//                "WHERE  authors = ? AND teams = ? ",
+//        resultClass = AdHocTeamMembers.class
+//)
 public class AdHocTeamMembers {
     @Id
     @ManyToOne
