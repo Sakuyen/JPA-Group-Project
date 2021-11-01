@@ -2,6 +2,7 @@ package csulb.cecs323.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedNativeQuery(
@@ -25,7 +26,7 @@ public class Publishers {
     @OneToMany (mappedBy = "publishers",
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
-    private ArrayList<Books> books = new ArrayList<>();
+    private List<Books> books = new ArrayList<>();
 
     public Publishers() { }
 
@@ -47,9 +48,9 @@ public class Publishers {
         }
     }
 
-    public ArrayList<Books> getBooks() { return books; }
+    public List<Books> getBooks() { return books; }
 
-    public void setBooks(ArrayList<Books> books) { this.books = books; }
+    public void setBooks(List<Books> books) { this.books = books; }
 
     public String getName() { return name; }
 
