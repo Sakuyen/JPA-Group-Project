@@ -12,7 +12,7 @@
 
 package csulb.cecs323.app;
 
-// Import all the entity classes that we have written for this application.
+// Import all of the entity classes that we have written for this application.
 import csulb.cecs323.model.*;
 
 import javax.persistence.EntityManager;
@@ -80,7 +80,7 @@ public class Main {
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
-//      List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
+      List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
 //      for (Publishers p : publishers) {
 //         System.out.println(publishers.toString());
 //      }
