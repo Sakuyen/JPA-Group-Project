@@ -88,16 +88,17 @@ public class Main {
         publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
         main.createEntity(publisher);
         List<Books> booksInData;
+        List<AuthoringEntities> authorsInData;
         // Commit the changes so that the new data persists and is visible to other users.
         tx.commit();
         LOGGER.fine("End");
         boolean done = false;
         List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
         while (!done) {
-            // updating queries.
+            // updating queries to give user updated lists
             publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
             booksInData = manager.createQuery("SELECT a FROM Books a", Books.class).getResultList();
-
+            authorsInData = manager.createQuery("SELECT a FROM AuthoringEntities a", AuthoringEntities.class).getResultList();
             // menu
             System.out.println("1. Add a new Object.\n" +
                     "2. Display all information for a specific Object.\n" +
@@ -203,12 +204,12 @@ public class Main {
                             }
                         }
                         System.out.println("LIST OF AUTHORING ENTITIES:");
-                        for (AuthoringEntities a : authors) {
+                        for (AuthoringEntities a : authorsInData) {
                             System.out.println(a.toString());
                         }
                         System.out.println("Select the author's email");
                         authorEmail = getUserString();
-                        for (AuthoringEntities a : authors) {
+                        for (AuthoringEntities a : authorsInData) {
                             if (a.getEmail().equals(authorEmail)) {
                                 author = a;
                             }
@@ -314,12 +315,12 @@ public class Main {
 
                     // Select a new authoring entity.
                     System.out.println("SELECT A NEW AUTHORING ENTITY BY EMAIL:");
-                    for (AuthoringEntities author : authors) {
+                    for (AuthoringEntities author : authorsInData) {
                         System.out.println(author.toString());
                     }
                     String email;
                     email = getUserString();
-                    for (AuthoringEntities author : authors) {
+                    for (AuthoringEntities author : authorsInData) {
                         if (email.equals(author.getEmail())) {
                             System.out.println("Chosen authoring entity: " + author.toString());
                             selectedBook.setAuthoringEntities(author);
