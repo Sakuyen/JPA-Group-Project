@@ -83,6 +83,7 @@ public class Main {
 //      owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
 //      // Create the list of owners in the database.
 
+      System.out.println("annie is here xd");
       // Prompts user for a publisher, phone number, and email
       System.out.println("Enter a publisher.");
       String name = getUserString();
@@ -95,7 +96,7 @@ public class Main {
       List <Publishers> publishers = new ArrayList<>();
       publishers.add(publisher);
 
-
+      // Creates the list of publishers in the database.
       main.createEntity (publishers);
 
       // Commit the changes so that the new data persists and is visible to other users.
