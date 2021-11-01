@@ -13,9 +13,9 @@ public class AuthoringEntities {
     @Column(length = 80, nullable = false)
     private String name;
 
-    @OneToMany (mappedBy = "authoringEntities",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany (mappedBy = "entities",
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
     private ArrayList<Books> books = new ArrayList<>();
 
     public AuthoringEntities() { }

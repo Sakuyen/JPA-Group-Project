@@ -16,8 +16,8 @@ public class Publishers {
     private String phone;
 
     @OneToMany (mappedBy = "publishers",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
     private ArrayList<Books> books = new ArrayList<>();
 
     public Publishers() { }
