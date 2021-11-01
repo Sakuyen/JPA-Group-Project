@@ -128,7 +128,7 @@ public class Main {
                        "3. Display email of all Authoring Entities.\n" +
                        "4. Finish");
                Scanner in5 = new Scanner(System.in);
-               int choice5 = Integer.parseInt(in.next());
+               int choice5 = Integer.parseInt(in5.next());
                switch(choice5) {
                   case 1: // Display publisher names
                      for (Publishers p : publishers) {
@@ -142,7 +142,7 @@ public class Main {
                      break;
                   case 3: // Display Authoring Entity type and their email
 //                     for (AuthoringEntities a : authoringEntities) {
-//                        System.out.println(a.getAuthoringEntityType + " Email: " + a.getEmail() + ");
+//                        System.out.println(a.getAuthoringEntityType() + " Email: " + a.getEmail() + ");
 //                     }
                      break;
                   case 4:
