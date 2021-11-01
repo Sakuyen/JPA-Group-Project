@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
-
+//do you see this
 /**
  * A simple application to demonstrate how to persist an object in JPA.
  * <p>
