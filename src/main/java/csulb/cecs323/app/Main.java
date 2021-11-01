@@ -82,12 +82,12 @@ public class Main {
       List<WritingGroups> group = new ArrayList<>();
       group.add(new WritingGroups("Authoring Company", "company@getauthored.com", "Hed Wright", 1999));
       group.add(new WritingGroups("Authoring Group", "group@getauthored.com", "Writ Heed", 2000));
-      main.createEntity (publisher);
+      main.createEntity (group);
 
       List<Books> book = new ArrayList<>();
       book.add(new Books(publisher.get(0), group.get(1), 123456789, "A Title", 2012));
       book.add(new Books(publisher.get(1), group.get(0), 987654321, "Another Title", 2020));
-      main.createEntity (publisher);
+      main.createEntity (book);
 
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
