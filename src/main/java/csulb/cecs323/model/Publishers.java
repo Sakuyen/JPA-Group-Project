@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
+@NamedNativeQuery(
+        name="ReturnPublishers",
+        query = "SELECT * " +
+                "FROM   PUBLISHERS " +
+                "WHERE  name = ? ",
+        resultClass = Publishers.class
+)
 public class Publishers {
     @Id
     @Column(length = 80, nullable = false)

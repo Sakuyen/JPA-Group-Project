@@ -3,6 +3,13 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
+@NamedNativeQuery(
+        name="ReturnBooks",
+        query = "SELECT * " +
+                "FROM   BOOKS " +
+                "WHERE  isbn = ? ",
+        resultClass = Publishers.class
+)
 @Table (uniqueConstraints = {
         @UniqueConstraint(name = "UniqueTitleAndAuthoringEntityName", columnNames = { "title", "authoringEntityName" }),
         @UniqueConstraint(name = "UniqueTitleAndPublisherName", columnNames = { "title", "publisherName" })})

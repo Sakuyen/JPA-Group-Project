@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
+@NamedNativeQuery(
+        name="ReturnAuthoringEntities",
+        query = "SELECT * " +
+                "FROM   AUTHORINGENTITIES " +
+                "WHERE  email = ? ",
+        resultClass = Publishers.class
+)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class AuthoringEntities {
     @Id
