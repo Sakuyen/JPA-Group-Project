@@ -14,6 +14,7 @@ package csulb.cecs323.app;
 
 // Import all of the entity classes that we have written for this application.
 import csulb.cecs323.model.*;
+import org.eclipse.persistence.oxm.record.WriterRecord;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -77,6 +78,17 @@ public class Main {
       publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
       publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
       main.createEntity (publisher);
+
+      List<WritingGroups> group = new ArrayList<>();
+      group.add(new WritingGroups("Authoring Company", "company@getauthored.com", "Hed Wright", 1999));
+      group.add(new WritingGroups("Authoring Group", "group@getauthored.com", "Writ Heed", 2000));
+      main.createEntity (publisher);
+
+      List<Books> book = new ArrayList<>();
+      book.add(new Books(publisher.get(0), group.get(1), 123456789, "A Title", 2012));
+      book.add(new Books(publisher.get(1), group.get(0), 987654321, "Another Title", 2020));
+      main.createEntity (publisher);
+
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
@@ -110,19 +122,35 @@ public class Main {
                        "3. Display all information for a specific Writing Group.\n" +
                        "4. Finish");
                Scanner in2 = new Scanner(System.in);
-               int choice2 = Integer.parseInt(in.next());
+               int choice2 = Integer.parseInt(in2.next());
                Scanner in3 = new Scanner(System.in);
                switch(choice2){
                   case 1:
                      System.out.println("Select a publisher by entering their name:");
-                     String name = in.nextLine();
-                     System.out.println(publishers);
+                     String name = in3.nextLine();
+                     for(Publishers p: publishers) {
+                        if(p.getName().equals(name)){
+                           System.out.println(p);
+                        }
+                     }
                      break;
                   case 2:
-                     System.out.println(books);
+                     System.out.println("Select a book by entering its isbn:");
+                     int isbn = in3.nextInt();
+                     for(Books b: books) {
+                        if(b.getIsbn() == isbn){
+                           System.out.println(b);
+                        }
+                     }
                      break;
                   case 3:
-                     System.out.println(groups);
+                     System.out.println("Select a Writing Group by entering their email:");
+                     String email = in3.nextLine();
+                     for(WritingGroups w: groups) {
+                        if(w.getEmail().equals(email)){
+                           System.out.println(w);
+                        }
+                     }
                      break;
                   case 4:
                      System.out.println("Exiting.");
@@ -139,7 +167,7 @@ public class Main {
                        "3. Display email of all Authoring Entities.\n" +
                        "4. Finish");
                Scanner in5 = new Scanner(System.in);
-               int choice5 = Integer.parseInt(in.next());
+               int choice5 = Integer.parseInt(in5.next());
                switch(choice5) {
                   case 1: // Display publisher names
                      for (Publishers p : publishers) {
@@ -147,14 +175,14 @@ public class Main {
                      }
                      break;
                   case 2: // Display Book titles and ISBN
-//                     for (Books b : books) {
-//                        System.out.println("ISBN: " + b.getIsbn() + ", Title: " + b.getTitle());
-//                     }
+                     for (Books b : books) {
+                        System.out.println("ISBN: " + b.getIsbn() + ", Title: " + b.getTitle());
+                     }
                      break;
                   case 3: // Display Authoring Entity type and their email
-//                     for (AuthoringEntities a : authoringEntities) {
-//                        System.out.println(a.getAuthoringEntityType + " Email: " + a.getEmail() + ");
-//                     }
+                     for (AuthoringEntities a : groups) {
+                        System.out.println(a.getAuthoringEntityType() + " Email: " + a.getEmail());
+                     }
                      break;
                   case 4:
                      break;
