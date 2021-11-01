@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
+//@NamedNativeQuery(
+//        name="ReturnAuthoringEntities",
+//        query = "SELECT * " +
+//                "FROM   AUTHORINGENTITIES " +
+//                "WHERE  email = ? ",
+//        resultClass = Publishers.class
+//)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class AuthoringEntities {
     @Id
@@ -13,16 +20,20 @@ public class AuthoringEntities {
     @Column(length = 80, nullable = false)
     private String name;
 
+    @Column(length = 31, nullable = false)
+    private String authoringEntityType;
+
     @OneToMany (mappedBy = "entities",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private ArrayList<Books> books = new ArrayList<>();
 
     public AuthoringEntities() { }
 
-    public AuthoringEntities(String name, String email) {
+    public AuthoringEntities(String name, String email, String authoringEntityType) {
         this.name = name;
         this.email = email;
+        this.authoringEntityType = authoringEntityType;
     }
 
     public void addBooks(Books book) {
@@ -55,5 +66,13 @@ public class AuthoringEntities {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAuthoringEntityType() {
+        return authoringEntityType;
+    }
+
+    public void setAuthoringEntityType(String authoringEntityType) {
+        this.authoringEntityType = authoringEntityType;
     }
 }

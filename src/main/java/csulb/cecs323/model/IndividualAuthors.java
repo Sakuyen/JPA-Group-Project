@@ -6,14 +6,14 @@ import java.util.ArrayList;
 @Entity
 public class IndividualAuthors extends AuthoringEntities {
     @OneToMany (mappedBy = "authors",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private ArrayList<AdHocTeamMembers> teamMembers;
 
     public IndividualAuthors() { }
 
     public IndividualAuthors(String name, String email) {
-        super(name, email);
+        super(name, email, "Individual Author");
     }
 
     public void addTeamMembers(AdHocTeamMembers teamMember) {
