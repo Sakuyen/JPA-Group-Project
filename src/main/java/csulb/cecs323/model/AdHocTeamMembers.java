@@ -21,8 +21,17 @@ public class AdHocTeamMembers {
     @JoinColumn(name = "adHocTeamEmail", referencedColumnName = "email", nullable = false)
     private AdHocTeams teams;
 
+    /**
+     * The default constructor for the AdHocTeamMembers class. This is an
+     * assosiation class of AdHocTeam and IndividualAuthors
+     */
     public AdHocTeamMembers() { }
 
+    /**
+     * The constructor for the AdHocTeamMembers class
+     * @param authors References the individual author object that is an AdHocTeamMember
+     * @param teams References the AdHocTeam object that the inidividual author is a member of
+     */
     public AdHocTeamMembers(IndividualAuthors authors, AdHocTeams teams) {
         this.authors = authors;
         this.teams = teams;

@@ -74,16 +74,20 @@ public class Main {
       LOGGER.fine("Begin");
       EntityTransaction tx = manager.getTransaction();
       tx.begin();
+
+      //Adds to Publisher table
       List<Publishers> publisher = new ArrayList<>();
       publisher.add(new Publishers("Publishing Company", "(123)-456-1234", "company@getpublished.com"));
       publisher.add(new Publishers("Publishing Group", "(987)-654-3210", "group@getpublished.com"));
       main.createEntity (publisher);
 
+      //Adds to WritingGroups table
       List<WritingGroups> group = new ArrayList<>();
       group.add(new WritingGroups("Authoring Company", "company@getauthored.com", "Hed Wright", 1999));
       group.add(new WritingGroups("Authoring Group", "group@getauthored.com", "Writ Heed", 2000));
       main.createEntity (group);
 
+      //Adds to Books table
       List<Books> book = new ArrayList<>();
       book.add(new Books(publisher.get(0), group.get(1), 123456789, "A Title", 2012));
       book.add(new Books(publisher.get(1), group.get(0), 987654321, "Another Title", 2020));
@@ -92,15 +96,16 @@ public class Main {
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
+
       boolean done = false;
-//      EntityManager em = getEntityManager();
-//      Query query = em.createNamedQuery();
+
       List<Publishers> publishers = manager.createQuery
               ("SELECT a FROM Publishers a", Publishers.class).getResultList();
       List<Books> books = manager.createQuery
               ("SELECT a FROM Books a", Books.class).getResultList();
       List<WritingGroups> groups = manager.createQuery
               ("SELECT a FROM WritingGroups a", WritingGroups.class).getResultList();
+
       while(!done) {
          // menu
          System.out.println("1. Add a new Object.\n" +
@@ -125,7 +130,7 @@ public class Main {
                int choice2 = Integer.parseInt(in2.next());
                Scanner in3 = new Scanner(System.in);
                switch(choice2){
-                  case 1:
+                  case 1: //Display information for specific publisher
                      System.out.println("Select a publisher by entering their name:");
                      String name = in3.nextLine();
                      for(Publishers p: publishers) {
@@ -134,7 +139,7 @@ public class Main {
                         }
                      }
                      break;
-                  case 2:
+                  case 2: //Display information for specific book
                      System.out.println("Select a book by entering its isbn:");
                      int isbn = in3.nextInt();
                      for(Books b: books) {
@@ -143,7 +148,7 @@ public class Main {
                         }
                      }
                      break;
-                  case 3:
+                  case 3: //Display information for specific writing group
                      System.out.println("Select a Writing Group by entering their email:");
                      String email = in3.nextLine();
                      for(WritingGroups w: groups) {
@@ -198,11 +203,6 @@ public class Main {
 
    } // End of the main method
 
-   public static String getUserString() {
-      Scanner in = new Scanner(System.in);
-      return in.nextLine();
-   }
-
    /**
     * Create and persist a list of objects to the database.
     * @param entities   The list of entities to persist.  These can be any object that has been
@@ -224,7 +224,4 @@ public class Main {
       }
    } // End of createEntity member method
 
-   public void listInfo(Object o){
-
-   }
 } // End of Main class
