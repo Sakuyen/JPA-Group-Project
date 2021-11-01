@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
-//do you see this
+
 /**
  * A simple application to demonstrate how to persist an object in JPA.
  * <p>
@@ -80,8 +80,10 @@ public class Main {
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End");
-      List<Publishers> resultPublisher = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
-//      listInfo(publishers);
+      List<Publishers> publishers = manager.createQuery("SELECT a FROM Publishers a", Publishers.class).getResultList();
+//      for (Publishers p : publishers) {
+//         System.out.println(publishers.toString());
+//      }
 
    } // End of the main method
 
