@@ -12,7 +12,7 @@
 
 package csulb.cecs323.app;
 
-// Import all of the entity classes that we have written for this application.
+// Import all the entity classes that we have written for this application.
 import csulb.cecs323.model.*;
 import org.eclipse.persistence.oxm.record.WriterRecord;
 
